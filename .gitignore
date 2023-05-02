@@ -1,2 +1,16 @@
 CMakeFiles/
 CMakeCache.txt
+.vscode/
+Makefile
+bin/
+cmake_install.cmake
+lib/Makefile
+lib/cmake_install.cmake
+lib/libgmock.a
+lib/libmock_main.a
+lib/libgmock_main.a
+lib/libgtest.a
+lib/libgtest_main.a
+lib/libsimpleLibrary.a
+test/googletest/googletest/generated/
+test/lib/

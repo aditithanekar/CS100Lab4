@@ -1,6 +1,19 @@
+using namespace std;
+#include <vector>
 #include "gtest/gtest.h"
 #include "../include/Hailstone.h"
+#include "../include/Awards.h"
+#include <string>
+#include "gmock/gmock.h"
+#include <iostream>
+using ::testing::AtLeast;
+
 using sequence::satisfiesHailstone;
+using std::vector;
+using sequence::satisfiesHailstone;
+
+using awards::RankList;
+using awards::AwardCeremonyActions;
 
 // not working
 TEST(TriangleTests, testPerimeter) {
@@ -44,24 +57,55 @@ TEST(TriangleTests, typeCheck){
     EXPECT_EQ(newTriangle->getKind(), Triangle::Kind::ISOSCELES);
 }
 
+class AwardeeList:public RankList
+{
+    public:
+        unsigned int whichPersonIndex=0;
+        string peopleList[5] = {" ", "Khushi", "Aditi", "Rose", "Sarah"}; 
 
-TEST(HailstoneTests, satisfyHailstoneZeroFalse)
+        string getNext()
+        {
+            whichPersonIndex++;
+            if(whichPersonIndex<=3)
+            {
+                return peopleList[whichPersonIndex];
+                
+            }
+            return "";
+        }
+};
+
+//mock class for award ceremony
+class MockAwardCeremonyActions:public AwardCeremonyActions
 {
-    bool result = sequence::satisfiesHailstone(0);
-    EXPECT_FALSE(result);
-}
-TEST(HailstoneTests, satisfyHailstoneOne)
+    public: 
+        //void performAwardCeremony(RankList& recipients, AwardCeremonyActions& actions);
+        MOCK_METHOD(void, playAnthem, (), (override));
+        MOCK_METHOD(void, turnOffTheLightsAndGoHome, (), (override));
+        MOCK_METHOD(void, awardBronze, (std::string recipient), (override));
+        MOCK_METHOD(void, awardSilver, (std::string recipient), (override));
+        MOCK_METHOD(void, awardGold, (std::string recipient), (override));
+};
+
+TEST(AwardsTests, TestPerformAwardsCeremony)
 {
-    bool result = sequence::satisfiesHailstone(1);
-    EXPECT_TRUE(result);
+    MockAwardCeremonyActions actionToDo;
+    AwardeeList awardRecipients;
+
+    EXPECT_CALL(actionToDo, playAnthem())
+        .Times(1);
+
+    EXPECT_CALL(actionToDo, awardBronze("Khushi"))
+        .Times(1);
+    EXPECT_CALL(actionToDo, awardSilver("Aditi"))
+        .Times(1);
+
+    EXPECT_CALL(actionToDo, awardGold("Rose"))
+        .Times(1);
+    
+    EXPECT_CALL(actionToDo, turnOffTheLightsAndGoHome())
+        .Times(1);    
+
+    performAwardCeremony(awardRecipients, actionToDo);
 }
-TEST(HailstoneTests, satisfyHailstoneEven)
-{
-    bool result = sequence::satisfiesHailstone(28);
-    EXPECT_TRUE(result);
-}
-TEST(HailstoneTests, satisfyHailstoneOdd)
-{
-    bool result = sequence::satisfiesHailstone(7);
-    EXPECT_TRUE(result);
-}
+

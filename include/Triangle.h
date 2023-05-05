@@ -33,7 +33,7 @@ namespace shapes {
 
     // Return the kind or classification of the triangle as determined
     // by its sides.
-    Kind   getKind() const;
+    Kind getKind() const;
 
     // Return true if this triangle is isosceles.
     bool isIsosceles() const;

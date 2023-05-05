@@ -12,5 +12,10 @@ lib/libgmock_main.a
 lib/libgtest.a
 lib/libgtest_main.a
 lib/libsimpleLibrary.a
+HailstoneTestingBranch
+test/Makefile
+test/cmake_install.cmake
+test/googletest/googletest/generated/
 test/googletest/googletest/generated/
 test/lib/
+main

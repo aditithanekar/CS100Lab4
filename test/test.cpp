@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
-#include "../include/Triangle.h"
-using shapes::Triangle;
+#include "../include/Hailstone.h"
+using sequence::satisfiesHailstone;
 
 // not working
 TEST(TriangleTests, testPerimeter) {
@@ -23,7 +23,6 @@ TEST(TriangleTests, invalidInput){
     EXPECT_DEATH(new Triangle(2,1,5), "First side is not the longest");
 }
 
-
 //working
 TEST(TriangleTests, validInput){
     Triangle *newTriangle = new Triangle(4,3,2);
@@ -43,4 +42,26 @@ TEST(TriangleTests, areaCheck){
 TEST(TriangleTests, typeCheck){
     Triangle *newTriangle = new Triangle(5,5,3);
     EXPECT_EQ(newTriangle->getKind(), Triangle::Kind::ISOSCELES);
+}
+
+
+TEST(HailstoneTests, satisfyHailstoneZeroFalse)
+{
+    bool result = sequence::satisfiesHailstone(0);
+    EXPECT_FALSE(result);
+}
+TEST(HailstoneTests, satisfyHailstoneOne)
+{
+    bool result = sequence::satisfiesHailstone(1);
+    EXPECT_TRUE(result);
+}
+TEST(HailstoneTests, satisfyHailstoneEven)
+{
+    bool result = sequence::satisfiesHailstone(28);
+    EXPECT_TRUE(result);
+}
+TEST(HailstoneTests, satisfyHailstoneOdd)
+{
+    bool result = sequence::satisfiesHailstone(7);
+    EXPECT_TRUE(result);
 }

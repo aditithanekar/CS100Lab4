@@ -5,7 +5,8 @@ add_subdirectory(googletest)
 
 add_executable(runAllTests
 
-  test.cpp 
+  test.cpp
+  testawards.cpp
 )
 
 target_link_libraries(runAllTests gmock gtest gtest_main)

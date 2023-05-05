@@ -1,6 +1,8 @@
 #include "gtest/gtest.h"
 #include "../include/Hailstone.h"
+#include "../include/Triangle.h"
 using sequence::satisfiesHailstone;
+using namespace shapes;
 
 // not working
 TEST(TriangleTests, testPerimeter) {
